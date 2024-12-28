@@ -500,6 +500,15 @@
             displayEvents(sorted);
         });
 
+        // Search Functionality
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const searchQuery = this.value.toLowerCase();
+            const filteredEvents = events.filter(event => {
+                return event.title.toLowerCase().includes(searchQuery) || event.description.toLowerCase().includes(searchQuery);
+            });
+            displayEvents(filteredEvents);
+        });
+
         displayEvents();
     </script>
 </body>
