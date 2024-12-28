@@ -3,204 +3,494 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UHV SEM Importanrt by sandeep ECE</title>
+    <title>Event Management System - Explore, Attend & Grow</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #9b59b6;
+            --accent-color: #e74c3c;
+            --dark-color: #2c3e50;
+            --light-color: #f5f5f5;
+            --button-hover-color: #8e44ad;
+            --transition-speed: 0.3s;
+            --shadow-color: rgba(0, 0, 0, 0.1);
         }
+
         body {
+            font-family: 'Arial', sans-serif;
+            background: var(--light-color);
+            transition: all var(--transition-speed) ease;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #f6d365, #fda085);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            color: #333;
+            overflow-x: hidden;
+            position: relative;
         }
-        .container {
-            width: 90%;
-            max-width: 700px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            text-align: center;
-            margin-bottom: 20px;
+
+        .navbar {
+            background: rgba(52, 152, 219, 0.9);
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
-        h1 {
-            font-size: 1.8em;
-            color: #333;
-            margin-bottom: 15px;
-        }
-        .chatgpt-link {
-            margin: 20px 0;
-            text-align: center;
-        }
-        .chatgpt-link a {
-            text-decoration: none;
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 1em;
+
+        .navbar-brand {
             font-weight: bold;
-            display: inline-block;
-            transition: background-color 0.3s, box-shadow 0.3s;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
         }
-        .chatgpt-link a:hover {
-            background-color: #3e8e41;
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+
+        .navbar-brand i {
+            margin-right: 10px;
         }
-        .unit {
-            margin-bottom: 15px;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: background-color 0.3s;
+
+        .navbar .navbar-toggler {
+            border: none;
         }
-        .unit-header {
-            background-color: #fda085;
-            padding: 15px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            color: #fff;
+
+        .navbar-nav .nav-item {
+            padding-left: 15px;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .search-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-group .form-control {
+            width: 300px;
+        }
+
+        .custom-btn {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        .custom-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px var(--shadow-color);
+        }
+
+        .custom-btn:disabled {
+            background: var(--dark-color);
+            cursor: not-allowed;
+        }
+
+        .filter-group button.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* Section-specific button colors */
+        .btn-events {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-about {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-contact {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        body.dark-theme {
+            background: #34495e;
+            color: white;
+        }
+
+        body.dark-theme .event-card {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group button {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .filter-group button.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .navbar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 8px;
         }
-        .unit-header:hover {
-            background-color: #fc6e51;
+
+        .navbar .navbar-brand i {
+            margin-right: 8px;
         }
-        .unit-header::after {
-            content: '▼';
-            transition: transform 0.3s;
-        }
-        .unit.open .unit-header::after {
-            transform: rotate(180deg);
-        }
-        .unit-questions {
-            background-color: #fafafa;
-            max-height: 0;
+
+        /* Card Styling */
+        .event-card {
+            position: relative;
             overflow: hidden;
-            padding: 0 15px;
-            transition: max-height 0.5s ease, padding 0.3s ease;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.4s, box-shadow 0.4s ease-in-out;
+            cursor: pointer;
+            background-color: white;
+            text-align: center;
+            margin-bottom: 2rem;
         }
-        .unit.open .unit-questions {
-            max-height: 1000px;
-            padding-top: 10px;
-            padding-bottom: 10px;
+
+        .event-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px var(--shadow-color);
         }
-        .question {
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
-            color: #555;
-            font-size: 0.95em;
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
         }
-        .question:last-child {
-            border-bottom: none;
+
+        .event-card:hover .event-image {
+            transform: scale(1.1);
         }
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.5em;
+
+        /* Buttons Styling */
+        .event-card-buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .event-card-buttons button {
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 25px;
+            width: 45%;
+            transition: all 0.3s ease;
+        }
+
+        .event-card-buttons button:hover {
+            background-color: var(--button-hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        .modal-body .form-control {
+            border-radius: 25px;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .modal-body .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.6);
+        }
+
+        .modal-footer .custom-btn {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+        }
+
+        .modal-header {
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        /* Particle Effect */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: transparent;
+        }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            animation: moveParticles 5s infinite ease-in-out;
+        }
+
+        @keyframes moveParticles {
+            0% {
+                transform: translate(0, 0);
             }
-            .unit-header {
-                font-size: 1em;
-                padding: 12px;
+            50% {
+                transform: translate(30px, 30px);
             }
-            .chatgpt-link a {
-                padding: 10px 20px;
-                font-size: 0.9em;
+            100% {
+                transform: translate(0, 0);
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand text-white" href="#">
+                <i class="fas fa-calendar-alt"></i> EventExplorer
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#eventsModal">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</a>
+                    </li>
+                </ul>
+                <div class="search-group ms-3">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search events...">
+                    <button id="themeToggle" class="custom-btn ms-2">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-<div class="container">
-    <h1>UHV SEM Important Questions</h1>
-
-    <!-- ChatGPT Link Section -->
-    <div class="chatgpt-link">
-        <a href="https://chat.openai.com/" target="_blank" aria-label="Find answers on ChatGPT">Find Answers to the Questions on ChatGPT</a>
-    </div>
-
-    <!-- Unit 1 -->
-    <div class="unit">
-        <div class="unit-header" onclick="toggleUnit(this)">Unit 1: Introduction to Value Education</div>
-        <div class="unit-questions">
-            <div class="question">What is value education, and why is there a need for value education?</div>
-            <div class="question">What is the process of value education, and how does self-exploration play a role in it?</div>
-            <div class="question">What are the basic human aspirations, and how do right understanding, relationships, and physical facilities contribute to achieving them?</div>
-            <div class="question">Define self-exploration. What is its purpose, and what are the mechanisms involved, like natural acceptance and experiential validation?</div>
-            <div class="question">What is the difference between animal consciousness and human consciousness?</div>
-            <div class="question">Explain the difference between Sukh (happiness) and Suvidha (comforts). How does each impact human behavior?</div>
+    <!-- Modals -->
+    <!-- Events Modal -->
+    <div class="modal fade" id="eventsModal" tabindex="-1" aria-labelledby="eventsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventsModalLabel">Upcoming Events</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Here you will find a wide range of events happening soon. Explore and choose the events you are interested in, register and attend online or in person!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="custom-btn" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Unit 2 -->
-    <div class="unit">
-        <div class="unit-header" onclick="toggleUnit(this)">Unit 2: Harmony in the Human Being</div>
-        <div class="unit-questions">
-            <div class="question">Distinguish between the needs of the self and the needs of the body. How are they different in nature and continuity?</div>
-            <div class="question">What does it mean that the human being is a co-existence of the self (consciousness) and the body (physical)?</div>
-            <div class="question">Describe the activities of the self, including imaging, analyzing, and selecting/tasting. How are these related to desires, thoughts, and expectations?</div>
-            <div class="question">How can harmony between the self and the body be achieved, and why is it important for human well-being?</div>
-            <div class="question">What is self-regulation, and how does it contribute to the health and well-being of an individual?</div>
+    <!-- About Modal -->
+    <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="aboutModalLabel">About EventExplorer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>EventExplorer is an all-in-one platform designed to help users discover, register, and attend a wide variety of events across different categories like tech, business, education, and more.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="custom-btn" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Unit 3 -->
-    <div class="unit">
-        <div class="unit-header" onclick="toggleUnit(this)">Unit 3: Harmony in the Family and Society</div>
-        <div class="unit-questions">
-            <div class="question">What is the importance of harmony in the family, and how does it serve as the foundation for human relationships?</div>
-            <div class="question">Explain the relationship between Self ('I') and Self ('I') and how it differs from body-based relationships.</div>
-            <div class="question">What are the nine essential feelings (values) in human relationships, and why are they important?</div>
-            <div class="question">Define trust as the foundation of relationships. How does trust relate to the intention and competence of individuals?</div>
-            <div class="question">What is respect in human relationships, and how does right evaluation differ from over, under, or otherwise evaluation?</div>
-            <div class="question">Discuss the significance of affection (sneha) and how it develops from trust and respect.</div>
-            <div class="question">Describe the feelings of care (mamatā) and guidance (vātsalya) in relationships. How do these contribute to harmony in the family?</div>
-            <div class="question">Explain the concepts of reverence (shraddhā) and glory (gaurav) and how they relate to recognizing and honoring the efforts and excellence of others.</div>
-            <div class="question">What is gratitude (kritagyatā), and why is it essential to acknowledge others' contributions to our well-being?</div>
-            <div class="question">What is the complete value of love in relationships, and how does it encompass all other feelings in a harmonious relationship?</div>
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel">Contact Us</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>If you have any questions or feedback, feel free to reach out to us at <strong>support@eventexplorer.com</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="custom-btn" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Unit 4 -->
-    <div class="unit">
-        <div class="unit-header" onclick="toggleUnit(this)">Unit 4: Harmony in Nature/Existence</div>
-        <div class="unit-questions">
-            <div class="question">What are the four orders of nature, and how do they interact with each other to maintain harmony in existence?</div>
-            <div class="question">How does interconnectedness and mutual fulfillment among the four orders of nature contribute to universal harmony?</div>
-            <div class="question">What is meant by the 'innateness' (dhaarna) of nature, and how does it manifest in each order?</div>
-            <div class="question">How do the natural characteristics (svabhava) of material order help humans live better lives?</div>
-            <div class="question">Explain how harmony with nature can be achieved and why it is essential for the well-being of society.</div>
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Filters -->
+        <div class="filter-group mb-4">
+            <button class="custom-btn btn-events active" data-category="all">All Events</button>
+            <button class="custom-btn btn-events" data-category="tech">Tech</button>
+            <button class="custom-btn btn-events" data-category="coding">Coding</button>
+            <button class="custom-btn btn-events" data-category="business">Business</button>
+            <button class="custom-btn btn-events" data-category="education">Education</button>
+            <button class="custom-btn btn-events" data-category="networking">Networking</button>
+        </div>
+
+        <!-- Sort Events -->
+        <div class="d-flex justify-content-between mb-4">
+            <select id="sortSelect" class="form-select w-auto">
+                <option value="date">Sort by Date</option>
+                <option value="name">Sort by Name</option>
+                <option value="price">Sort by Price</option>
+            </select>
+            <div id="eventCount">Events found: 0</div>
+        </div>
+
+        <!-- Events Grid -->
+        <div id="eventsGrid" class="row g-4"></div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="text-center my-4" style="display: none;">
+            <div class="loading-spinner"></div>
         </div>
     </div>
 
-    <!-- Unit 5 -->
-    <div class="unit">
-        <div class="unit-header" onclick="toggleUnit(this)">Unit 5: Implications of Holistic Understanding – Professional Ethics</div>
-        <div class="unit-questions">
-            <div class="question">What is ethical human conduct, and how does it relate to the natural acceptance of human values?</div>
-            <div class="question">How does a humanistic approach to education contribute to developing responsible individuals in society?</div>
-            <div class="question">What role does professional ethics play in promoting harmony in society, and how can individuals contribute to this through their professions?</div>
-            <div class="question">How can individuals contribute to societal harmony and the universal human order through personal development and understanding of universal human values?</div>
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p>© 2024 EventExplorer | <a href="#" class="text-white">Terms & Conditions</a> | <a href="#" class="text-white">Privacy Policy</a></p>
+            <div class="social-icons">
+                <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+            </div>
         </div>
-    </div>
-</div>
+    </footer>
 
-<script>
-    function toggleUnit(headerElement) {
-        const unit = headerElement.parentElement;
-        unit.classList.toggle("open");
-    }
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const events = [
+            { id: 1, title: "AI & Web Development Hackathon", date: "2024-01-10", location: "Virtual", category: "tech", image: "./img.png", description: "A 24-hour hackathon on AI and web development. Get involved in exciting AI projects!", price: "Free" },
+            { id: 2, title: "ReactJS Workshop", date: "2024-01-15", location: "Tech Center", category: "coding", image: "images/reactjs-workshop.jpg", description: "Hands-on ReactJS workshop for beginners. Learn React in an interactive way.", price: "$50" },
+            { id: 3, title: "Business Strategies Summit", date: "2024-01-20", location: "Downtown Business Hub", category: "business", image: "images/business-strategies.jpg", description: "Learn essential business strategies from experts. Network and grow your business!", price: "$100" },
+            { id: 4, title: "Data Science Conference", date: "2024-01-28", location: "Virtual", category: "education", image: "images/data-science.jpg", description: "Explore data science trends and network with professionals. Gain hands-on experience.", price: "$120" },
+            { id: 5, title: "Digital Marketing Bootcamp", date: "2024-02-05", location: "Tech Campus", category: "business", image: "images/digital-marketing.jpg", description: "Intensive bootcamp for mastering digital marketing techniques.", price: "$80" },
+            { id: 6, title: "Python Programming Bootcamp", date: "2024-02-10", location: "Tech Center", category: "coding", image: "images/python-bootcamp.jpg", description: "A comprehensive Python bootcamp. Learn the fundamentals of Python for all levels.", price: "$60" },
+            { id: 7, title: "Startup Pitch Event", date: "2024-02-15", location: "Startup Hub", category: "business", image: "images/startup-pitch.jpg", description: "Present your startup ideas to potential investors. Pitch your business for funding.", price: "$50" },
+            { id: 8, title: "Blockchain Technology Seminar", date: "2024-02-20", location: "Virtual", category: "tech", image: "images/blockchain-seminar.jpg", description: "Learn the latest trends in blockchain technology. Dive into the world of blockchain.", price: "$100" },
+            { id: 9, title: "Cybersecurity Workshop", date: "2024-02-25", location: "Tech Campus", category: "tech", image: "images/cybersecurity-workshop.jpg", description: "Master cybersecurity techniques in this hands-on workshop. Protect your systems.", price: "$80" },
+            { id: 10, title: "AI in Business Conference", date: "2024-03-01", location: "Business Center", category: "business", image: "images/ai-business.jpg", description: "Explore how AI is transforming business models. Learn from AI industry experts.", price: "$150" }
+        ];
 
+        function displayEvents(eventsToShow = events) {
+            const grid = document.getElementById('eventsGrid');
+            const eventCount = document.getElementById('eventCount');
+            grid.innerHTML = eventsToShow.map(event => `
+                <div class="col-md-4">
+                    <div class="event-card">
+                        <img src="${event.image}" class="event-image" alt="${event.title}">
+                        <div class="p-3">
+                            <h5>${event.title}</h5>
+                            <p class="text-muted">${event.description.substring(0, 100)}...</p>
+                            <span class="badge bg-primary">${event.category}</span>
+                            <span class="badge bg-success">${event.price}</span>
+                            <div class="event-card-buttons">
+                                <button class="btn custom-btn btn-events" onclick="showEventDetails(${event.id})">Description</button>
+                                <button class="btn custom-btn btn-events" data-bs-toggle="modal" data-bs-target="#registerModal">Register</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            eventCount.textContent = `Events found: ${eventsToShow.length}`;
+        }
+
+        function showEventDetails(eventId) {
+            const event = events.find(e => e.id === eventId);
+            const modal = document.getElementById('eventModal');
+            modal.querySelector('.modal-title').textContent = event.title;
+            modal.querySelector('.modal-body').innerHTML = `
+                <img src="${event.image}" class="img-fluid mb-3" alt="${event.title}">
+                <p>${event.description}</p>
+                <p><strong>Date:</strong> ${event.date}</p>
+                <p><strong>Location:</strong> ${event.location}</p>
+                <p><strong>Price:</strong> ${event.price}</p>
+            `;
+            new bootstrap.Modal(modal).show();
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = events.filter(event => 
+                event.title.toLowerCase().includes(searchTerm) ||
+                event.description.toLowerCase().includes(searchTerm)
+            );
+            displayEvents(filtered);
+        });
+
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            this.innerHTML = document.body.classList.contains('dark-theme') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        // Category Filter
+        document.querySelectorAll('.filter-group button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.filter-group button').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                const category = this.dataset.category;
+                const filtered = category === 'all' ? events : events.filter(event => event.category === category);
+                displayEvents(filtered);
+            });
+        });
+
+        // Sort Events
+        document.getElementById('sortSelect').addEventListener('change', function() {
+            const value = this.value;
+            const sorted = [...events].sort((a, b) => {
+                if (value === 'date') return new Date(a.date) - new Date(b.date);
+                if (value === 'name') return a.title.localeCompare(b.title);
+                if (value === 'price') return parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', ''));
+            });
+            displayEvents(sorted);
+        });
+
+        displayEvents();
+    </script>
 </body>
 </html>
