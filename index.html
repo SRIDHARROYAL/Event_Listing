@@ -287,7 +287,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand text-white" href="#">
+            <a class="navbar-brand text-white" href="#" onclick="showPopupMessage('Home')">
                 <i class="fas fa-calendar-alt"></i> EventExplorer
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -297,13 +297,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#eventsModal">Events</a>
+                        <a class="nav-link" href="#" onclick="showPopupMessage('Events')" data-bs-toggle="modal" data-bs-target="#eventsModal">Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">About</a>
+                        <a class="nav-link" href="#" onclick="showPopupMessage('About')" data-bs-toggle="modal" data-bs-target="#aboutModal">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</a>
+                        <a class="nav-link" href="#" onclick="showPopupMessage('Contact')" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</a>
                     </li>
                 </ul>
                 <div class="search-group ms-3">
@@ -315,6 +315,13 @@
             </div>
         </div>
     </nav>
+
+    <!-- Pop-up Alert Function -->
+    <script>
+        function showPopupMessage(pageName) {
+            alert(`You are navigating to the ${pageName} section. Here you can find more details and interact with the system.`);
+        }
+    </script>
 
     <!-- Modals -->
     <!-- Event Description Modal -->
