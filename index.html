@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -97,22 +98,6 @@
             color: white;
         }
 
-        /* Section-specific button colors */
-        .btn-events {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .btn-about {
-            background: var(--secondary-color);
-            color: white;
-        }
-
-        .btn-contact {
-            background: var(--accent-color);
-            color: white;
-        }
-
         body.dark-theme {
             background: #34495e;
             color: white;
@@ -121,6 +106,57 @@
         body.dark-theme .event-card {
             background: #2c3e50;
             color: white;
+        }
+
+        body.dark-theme .event-card h5,
+        body.dark-theme .event-card p {
+            color: white;
+        }
+
+        body.dark-theme .event-card .badge {
+            color: white;
+        }
+
+        body.dark-theme .navbar {
+            background: rgba(52, 152, 219, 0.9);
+            color: white;
+        }
+
+        body.dark-theme .navbar .navbar-nav .nav-link {
+            color: white !important;
+        }
+
+        body.dark-theme .navbar .navbar-nav .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        body.dark-theme .event-card-buttons button {
+            background: #34495e;
+            color: white;
+        }
+
+        body.dark-theme .event-card-buttons button:hover {
+            background-color: #8e44ad;
+        }
+
+        body.dark-theme .search-group input {
+            background-color: #2c3e50;
+            color: white;
+            border-color: #34495e;
+        }
+
+        body.dark-theme .search-group input::placeholder {
+            color: #bdc3c7;
+        }
+
+        body.dark-theme .custom-btn {
+            background-color: #2c3e50;
+            color: white;
+            border-color: #34495e;
+        }
+
+        body.dark-theme .custom-btn:hover {
+            background-color: #8e44ad;
         }
 
         .loading-spinner {
@@ -133,8 +169,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .filter-group {
@@ -165,7 +206,6 @@
             margin-right: 8px;
         }
 
-        /* Card Styling */
         .event-card {
             position: relative;
             overflow: hidden;
@@ -195,7 +235,10 @@
             transform: scale(1.1);
         }
 
-        /* Buttons Styling */
+        .event-card .event-title {
+            font-weight: 600;
+        }
+
         .event-card-buttons {
             display: flex;
             justify-content: space-between;
@@ -237,41 +280,9 @@
         .modal-header {
             border-bottom: 2px solid var(--primary-color);
         }
-
-        /* Particle Effect */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            background: transparent;
-        }
-
-        .particle {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.7);
-            animation: moveParticles 5s infinite ease-in-out;
-        }
-
-        @keyframes moveParticles {
-            0% {
-                transform: translate(0, 0);
-            }
-            50% {
-                transform: translate(30px, 30px);
-            }
-            100% {
-                transform: translate(0, 0);
-            }
-        }
     </style>
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
@@ -279,7 +290,8 @@
             <a class="navbar-brand text-white" href="#">
                 <i class="fas fa-calendar-alt"></i> EventExplorer
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -305,16 +317,16 @@
     </nav>
 
     <!-- Modals -->
-    <!-- Events Modal -->
-    <div class="modal fade" id="eventsModal" tabindex="-1" aria-labelledby="eventsModalLabel" aria-hidden="true">
+    <!-- Event Description Modal -->
+    <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="eventsModalLabel">Upcoming Events</h5>
+                    <h5 class="modal-title" id="eventModalLabel">Event Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Here you will find a wide range of events happening soon. Explore and choose the events you are interested in, register and attend online or in person!</p>
+                    <!-- Event details will be injected here -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="custom-btn" data-bs-dismiss="modal">Close</button>
@@ -323,37 +335,33 @@
         </div>
     </div>
 
-    <!-- About Modal -->
-    <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="aboutModalLabel">About EventExplorer</h5>
+                    <h5 class="modal-title" id="registerModalLabel">Register for Event</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>EventExplorer is an all-in-one platform designed to help users discover, register, and attend a wide variety of events across different categories like tech, business, education, and more.</p>
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="phone" required>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="custom-btn" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contact Modal -->
-    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="contactModalLabel">Contact Us</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>If you have any questions or feedback, feel free to reach out to us at <strong>support@eventexplorer.com</strong></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="custom-btn" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="custom-btn" onclick="submitRegistration()">Submit</button>
                 </div>
             </div>
         </div>
@@ -425,12 +433,12 @@
                     <div class="event-card">
                         <img src="${event.image}" class="event-image" alt="${event.title}">
                         <div class="p-3">
-                            <h5>${event.title}</h5>
+                            <h5 class="event-title">${event.title}</h5>
                             <p class="text-muted">${event.description.substring(0, 100)}...</p>
                             <span class="badge bg-primary">${event.category}</span>
                             <span class="badge bg-success">${event.price}</span>
                             <div class="event-card-buttons">
-                                <button class="btn custom-btn btn-events" onclick="showEventDetails(${event.id})">Description</button>
+                                <button class="btn custom-btn btn-events" onclick="showEventDescription(${event.id})">Description</button>
                                 <button class="btn custom-btn btn-events" data-bs-toggle="modal" data-bs-target="#registerModal">Register</button>
                             </div>
                         </div>
@@ -440,37 +448,32 @@
             eventCount.textContent = `Events found: ${eventsToShow.length}`;
         }
 
-        function showEventDetails(eventId) {
+        function showEventDescription(eventId) {
             const event = events.find(e => e.id === eventId);
-            const modal = document.getElementById('eventModal');
-            modal.querySelector('.modal-title').textContent = event.title;
-            modal.querySelector('.modal-body').innerHTML = `
+            const modal = new bootstrap.Modal(document.getElementById('eventModal'));
+            modal._element.querySelector('.modal-title').textContent = event.title;
+            modal._element.querySelector('.modal-body').innerHTML = `
                 <img src="${event.image}" class="img-fluid mb-3" alt="${event.title}">
                 <p>${event.description}</p>
                 <p><strong>Date:</strong> ${event.date}</p>
                 <p><strong>Location:</strong> ${event.location}</p>
                 <p><strong>Price:</strong> ${event.price}</p>
             `;
-            new bootstrap.Modal(modal).show();
+            modal.show();
         }
 
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const filtered = events.filter(event => 
-                event.title.toLowerCase().includes(searchTerm) ||
-                event.description.toLowerCase().includes(searchTerm)
-            );
-            displayEvents(filtered);
-        });
+        function submitRegistration() {
+            alert("Registration form submitted!");
+        }
 
-        document.getElementById('themeToggle').addEventListener('click', function() {
+        document.getElementById('themeToggle').addEventListener('click', function () {
             document.body.classList.toggle('dark-theme');
             this.innerHTML = document.body.classList.contains('dark-theme') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
 
         // Category Filter
         document.querySelectorAll('.filter-group button').forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 document.querySelectorAll('.filter-group button').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
                 const category = this.dataset.category;
@@ -480,7 +483,7 @@
         });
 
         // Sort Events
-        document.getElementById('sortSelect').addEventListener('change', function() {
+        document.getElementById('sortSelect').addEventListener('change', function () {
             const value = this.value;
             const sorted = [...events].sort((a, b) => {
                 if (value === 'date') return new Date(a.date) - new Date(b.date);
@@ -493,4 +496,5 @@
         displayEvents();
     </script>
 </body>
+
 </html>
